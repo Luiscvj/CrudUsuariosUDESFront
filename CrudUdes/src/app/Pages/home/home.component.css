@@ -1,0 +1,14 @@
+.container
+{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  
+
+}
+
+.cardUsers
+{
+    min-width: 700px;
+    max-width: 100%;
+}

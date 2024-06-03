@@ -1,0 +1,40 @@
+
+
+<mat-dialog-content>
+      <h2>Edita el usuario!</h2>
+   <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="userData.name">
+   </mat-form-field>
+   
+   <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput [(ngModel)]="userData.lastName">
+   </mat-form-field>
+
+   <mat-form-field>
+      <mat-label>User Name</mat-label>
+      <input matInput [(ngModel)]="userData.userName">
+   </mat-form-field>
+
+   <mat-form-field>
+      <mat-label>Document Number</mat-label>
+      <input matInput [(ngModel)]="userData.documentNumber">
+   </mat-form-field>
+
+   <mat-form-field>
+      <mat-label>Document Type</mat-label>
+      <mat-select [(ngModel)]="userData.documentTypeId">
+            <mat-option value="1">Cedula</mat-option>
+            <mat-option value="2">Pasaporte</mat-option>
+      </mat-select>
+      <!-- <input matInput [(ngModel)]="userData.documentTypeId"> -->
+   </mat-form-field>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+     <button mat-raised-button color="primary"  [mat-dialog-close]="userData" cdkFocusInitial>Guardar</button>
+     <button mat-raised-button color="warm" (click)="onNoClick()">Cerrar</button> 
+</mat-dialog-actions>

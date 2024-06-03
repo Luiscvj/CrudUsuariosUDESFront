@@ -1,0 +1,110 @@
+
+<div class="register">
+    <mat-card  class="matCardRegister">
+        <mat-card-header>Se parte de la UDES</mat-card-header>
+        <mat-card-content>
+            <form [formGroup]="registerForm" >
+                <div class="container">
+                    <div class="row  g-2 " >
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <mat-label>Email</mat-label>
+                                <input type="text" matInput formControlName="email" [errorStateMatcher]="matcher">
+                                @if(this.registerForm.controls['email'].hasError('email') && !this.registerForm.controls['email'].hasError('required'))
+                                {
+                                    <mat-error>please enter a valid Email</mat-error>
+                                }
+                                @if(this.registerForm.controls['email'].hasError('required'))
+                                {
+                                    <mat-error>Email is <strong>required</strong></mat-error>
+                                }
+                               
+                            </mat-form-field>
+                        </div>                       
+                        <div class="col-md-4 " >
+                            <mat-form-field [style]="{'width':'100%','margin-right':'20%'}" >
+                                <mat-label>Password</mat-label>
+                                <input [type]="hide? 'password':'text'" matInput formControlName="password" [errorStateMatcher]="matcher">
+                                <button mat-icon-button matSuffix (click)="hide=!hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                                @if(this.registerForm.controls['password'].hasError('required'))
+                                {
+                                    <mat-error>Passowrd is required</mat-error>
+                                }
+                                @if(this.registerForm.controls['password'].hasError('strongPassword'))
+                                {
+                                    <mat-error>Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter,
+                                        one number, and one special character.</mat-error>
+                                }
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-4">
+                            <mat-form-field>
+                                <mat-label>UserName</mat-label>
+                                <input type="text" matInput formControlName="userName" [errorStateMatcher]="matcher">
+                                @if(this.registerForm.controls['userName'].hasError('required'))
+                                {
+                                    <mat-error>Username is required</mat-error>
+                                }
+                            </mat-form-field>
+                        </div>
+    
+                        <div class="col-md-4" >
+                           <mat-form-field >
+                             <mat-label>Document Type</mat-label>
+                             <mat-select [(value)]="documentType" required>
+                                <mat-option>None</mat-option>
+                                <mat-option value="1">Cedula</mat-option>
+                                <mat-option value="2">Pasaporte</mat-option>
+                            </mat-select>
+                           </mat-form-field>
+                        </div>
+    
+                        <div class=" col-md-8">
+                          <mat-form-field [style]="{'width':'100%','margin-right':'20%'}">
+                            <mat-label>Document number</mat-label>
+                            <input type="text" matInput formControlName="documentNumber" [errorStateMatcher]="matcher">
+                           @if(this.registerForm.controls["documentNumber"].hasError("required"))
+                           {
+                            <mat-error>Document number is <strong>required</strong></mat-error>
+                           }
+                          </mat-form-field>
+                        </div>    
+
+                        <div class=" col-md-8">
+                            <mat-form-field [style]="{'width':'100%','margin-right':'20%'}">
+                              <mat-label>Name</mat-label>
+                              <input type="text" matInput formControlName="name" [errorStateMatcher]="matcher">
+                             @if(this.registerForm.controls["name"].hasError("required"))
+                             {
+                              <mat-error>Name  is <strong>required</strong></mat-error>
+                             }
+                            </mat-form-field>
+                        </div>  
+
+                        <div class=" col-md-4">
+                            <mat-form-field>
+                              <mat-label>Last Name</mat-label>
+                              <input type="text" matInput formControlName="lastName" [errorStateMatcher]="matcher">
+                             @if(this.registerForm.controls["lastName"].hasError("required"))
+                             {
+                              <mat-error>Last name  is <strong>required</strong></mat-error>
+                             }
+                            </mat-form-field>
+                        </div>
+                        
+                        <div class="col-3" >
+                            <button mat-flat-button color="primary" [disabled]="registerForm.invalid" [style]="{'width':'100%','margin-right':'20%'}" (click)=" singUp()">Registrarse</button>
+                        </div>
+                        <div class="col-9">
+                            <button mat-flat-button color="warn">Volver</button>
+                        </div>
+                         
+                    </div>            
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
