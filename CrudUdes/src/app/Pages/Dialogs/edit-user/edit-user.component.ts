@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { UserDto } from '../../../Models/UserDTOS/UserDto';
 import { MatSelectModule } from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 @Component({
   selector: 'app-edit-user',
   standalone: true,
@@ -31,11 +32,14 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogActions,
     MatDialogClose,
     MatDialogModule,
-    MatSelectModule,],
+    MatSelectModule,
+    MatCheckboxModule],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css'
 })
 export class EditUserComponent {
+  showAddRol = false;
+
   constructor 
   (
     public dialogRef: MatDialogRef<EditUserComponent>,

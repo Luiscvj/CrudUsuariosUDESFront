@@ -1,0 +1,51 @@
+
+<mat-dialog-content>
+    <h2>Filtrar Usuarios</h2>
+    <ul>
+        <li>
+            <mat-checkbox  [(ngModel)]="showDocumentNumberInput" color="primary" (change)="toggleCheckBox('document')">Por # Documento</mat-checkbox>
+        </li>
+        <li>
+            <mat-checkbox [(ngModel)]="showRoleIdInput"   color="primary" (change)="toggleCheckBox('role')">Por Rol</mat-checkbox> 
+        </li>
+        <li>
+            <mat-checkbox [(ngModel)]="showByMissingRole"   color="primary" (change)="toggleCheckBox('missing')">Rol faltante</mat-checkbox> 
+        </li>
+    </ul>
+    
+  
+    @if(showDocumentNumberInput)
+    {
+        <mat-form-field>
+             <mat-label> Numero de documento</mat-label>
+             <input matInput [(ngModel)]="data.documentNumber">
+        </mat-form-field>
+    }
+ 
+     @if(showRoleIdInput )
+    {
+        <mat-form-field>
+            <mat-label>Roles</mat-label>
+            <mat-select [(ngModel)]="data.roleId">
+                    <mat-option value="1">Administrador</mat-option>
+                    <mat-option value="2">Empleado</mat-option>
+                    <mat-option value="3">Gerente</mat-option>
+            </mat-select>
+        </mat-form-field>      
+    }
+    @if(showByMissingRole )
+    {
+        <mat-form-field>
+            <mat-label>Roles faltantes</mat-label>
+            <mat-select [(ngModel)]="data.roleMissing">
+                    <mat-option value="1">Administrador</mat-option>
+                    <mat-option value="2">Empleado</mat-option>
+                    <mat-option value="3">Gerente</mat-option>
+            </mat-select>
+        </mat-form-field>      
+    }
+   <mat-dialog-actions>
+       <button mat-raised-button  color="primary" [mat-dialog-close]="data">Filtrar</button>
+       <button mat-raised-button (click)="onNoClick()" >Cerrar</button>
+   </mat-dialog-actions>
+</mat-dialog-content>

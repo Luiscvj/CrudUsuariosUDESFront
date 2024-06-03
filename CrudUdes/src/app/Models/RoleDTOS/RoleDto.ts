@@ -1,10 +1,10 @@
 export class RoleDto{
-    RoleId: number;
-    RoleName: string;
+    roleId: number;
+    roleName: string;
 
     constructor(roleId: number = 1,roleName: string='')
     {
-        this.RoleId = roleId;
-        this.RoleName = roleName;
+        this.roleId = roleId;
+        this.roleName = roleName;
     }
 }

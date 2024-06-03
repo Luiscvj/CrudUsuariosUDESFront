@@ -1,0 +1,20 @@
+
+<mat-dialog-content>
+    <div class="card" style="width: 18rem;">
+ 
+        <img src="../../../../assets/user.png"  style="width: 12rem; display: flex; align-items: center; justify-content: center; margin-left:45px ;" class="card-img-top" alt="...">
+        <hr>
+        <div class="card-body">
+          <h2 class="card-title">{{data.userName}}</h2>
+          <h4 class="card-text">Lista de roles</h4>
+          <ul>
+          
+           @for (rol of data.roles; track $index) 
+           {
+             <li>{{rol.roleName}}</li>
+           }
+          </ul>
+    <!--       <a href="#" class="btn btn-primary">Go somewhere</a> -->
+        </div>
+      </div>
+</mat-dialog-content>

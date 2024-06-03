@@ -1,25 +1,26 @@
 import { RoleDto } from "../RoleDTOS/RoleDto";
 
-export class UserDto{
+export class UserRolesDto
+{
     userId: number;
     name: string;
     lastName: string;
     documentNumber: string;
     documentTypeId: number;
     userName: string;
-    email?:string;
-    roleName?: string
+    roles: RoleDto[] = []
  
-    
-    constructor(userId:number, name : string,lastName: string,documentNumber: string, documentTypeId:number, userName: string, email?:string, role?:string){
+
+    constructor(userId:number = 0, name: string = '',lastName: string = '',documentNumber: string = '', documentTypeId:number = 0, userName: string = '', roles: RoleDto[] = []){
         this.userId = userId;
         this.name = name;
         this.lastName = lastName;
         this.documentNumber = documentNumber;
         this.documentTypeId = documentTypeId;
         this.userName =   userName;
-        this.email = email;
-        this.roleName= role 
+        this.roles = roles;
+
+        
        
         
     }

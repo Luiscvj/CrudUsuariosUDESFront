@@ -18,6 +18,10 @@
                                 {
                                     <mat-error>Email is <strong>required</strong></mat-error>
                                 }
+                                @if(this.registerForm.controls['email'].hasError('emailInUse'))
+                                {
+                                    <mat-error>Email is <strong>already in  use</strong></mat-error>
+                                }
                                
                             </mat-form-field>
                         </div>                       
@@ -98,9 +102,7 @@
                         <div class="col-3" >
                             <button mat-flat-button color="primary" [disabled]="registerForm.invalid" [style]="{'width':'100%','margin-right':'20%'}" (click)=" singUp()">Registrarse</button>
                         </div>
-                        <div class="col-9">
-                            <button mat-flat-button color="warn">Volver</button>
-                        </div>
+                       
                          
                     </div>            
                 </div>

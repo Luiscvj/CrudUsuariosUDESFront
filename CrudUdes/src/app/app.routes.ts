@@ -8,7 +8,7 @@ import { EditUserComponent } from './Pages/Dialogs/edit-user/edit-user.component
 
 export const routes: Routes = 
 [
-    {path:'',component:HomeComponent},
+    {path:'',component:LoginComponent},
     {path:'login',component:LoginComponent},
     {path:'register',component:RegisterComponent},
     {path:'home',component:HomeComponent},

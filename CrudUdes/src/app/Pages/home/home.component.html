@@ -2,7 +2,19 @@
     <div class="container">
         <div class="card cardUsers">
             <div class="card-header">
-              Usuarios
+              
+              <div class="row ">
+                <div class="col-3 align-self-center" >Usuarios</div>
+               
+                <div class="col-3 listarButton "> 
+                  <button mat-raised-button color="primary"  (click)="obtenerUsuarios()" >Listar </button>
+                </div>
+                <div class="col-3 "> 
+                
+                  <button mat-raised-button color="warm" (click)="filterUsers()">Buscar</button>
+                
+              </div>
+
             </div>
             <div class="card-body">
                 <!-- Tabla -->
@@ -31,6 +43,8 @@
                       <th mat-header-cell *matHeaderCellDef> Last Name </th>
                       <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
                     </ng-container>
+
+
     
                     <ng-container matColumnDef="accion">
                       <th mat-header-cell *matHeaderCellDef> </th>
@@ -41,6 +55,9 @@
                         <button mat-icon-button color="warm" (click)="deleteUser(element)">
                             <mat-icon>delete</mat-icon>
                         </button>
+                        <button mat-icon-button color="warm" (click)="checkRoleInfoFromUser(element)">
+                          <mat-icon>info</mat-icon>
+                      </button>
                       </td>
                     </ng-container>
                   

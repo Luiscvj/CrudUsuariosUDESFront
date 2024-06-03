@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
-import { UserService } from '../../Services/user.service';
+import { UserService } from '../../Services/User/user.service';
 import { UserDto } from '../../Models/UserDTOS/UserDto';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -14,6 +14,12 @@ import {
   MatDialogModule 
 } from '@angular/material/dialog';
 import { EditUserComponent } from '../Dialogs/edit-user/edit-user.component';
+import { FilterUserComponent } from '../Dialogs/filter-user/filter-user.component';
+import { FilterUserDialog } from '../../Helpers/Dialogs/FilterUserDialog';
+import { RoleService } from '../../Services/Role/role.service';
+import { AddRoleDto } from '../../Models/RoleDTOS/AddRoleDto';
+import { InfoRolesUserComponent } from '../Dialogs/info-roles-user/info-roles-user.component';
+import { UserRolesDto } from '../../Models/UserDTOS/UserRolesDto';
 
 @Component({
   selector: 'app-home',
@@ -35,11 +41,13 @@ import { EditUserComponent } from '../Dialogs/edit-user/edit-user.component';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-  private _apiuserService = inject(UserService);
+
   public userList: UserDto[] = [];
+  role: string = '';
+  userRoles: UserRolesDto = new UserRolesDto();
   public displayedColumns: string[]=['UserName','Email','Name','LastName','accion'];
 
-  constructor(private router: Router,public dialog:MatDialog){}
+  constructor(private router: Router,public dialog:MatDialog, private _apiRoleService:RoleService,  private _apiuserService:UserService){}
 
   
 
@@ -94,7 +102,9 @@ export class HomeComponent implements OnInit {
                 name: userData.name,
                 lastName: userData.lastName,
                 documentNumber: userData.documentNumber,
-                documentTypeId: userData.documentTypeId
+                documentTypeId: userData.documentTypeId,
+                roleName: userData.roleName,
+                email: userData.email
                }
         })
 
@@ -103,7 +113,24 @@ export class HomeComponent implements OnInit {
           {
             next:(data:UserDto)=>
               { 
+                
                 if(data == null) return 
+                if(data.email && data.roleName)
+                  {
+                   
+                    const addRol =  new AddRoleDto(data.email, data.roleName);    
+                    
+                    this._apiuserService.addRole(addRol).subscribe(
+                      {
+                        next:(data)=>
+                          {
+                            if(data.statusCode == 400)
+                              {
+                                alert("El usuario ya tiene el rol: " + addRol.role);
+                              }
+                          }
+                      })
+                  }
                  this._apiuserService.updateUser(data).subscribe(
                   {
                     next:(result)=>
@@ -123,7 +150,98 @@ export class HomeComponent implements OnInit {
           })
   }
 
-  
+  getUserByDocumentNumber(documentNumber:string)
+  {
+    this._apiuserService.getUserByDocumentNumber(documentNumber).subscribe(
+      {
+        next:(userData)=>
+          {
+            console.log(userData.name);
+          }
+      })
+  }
 
+  filterUsers()
+  {
+    const filterData :FilterUserDialog=
+    {
+      roleId :0,
+      documentNumber: '',
+      roleMissing: 0
+    }
+    
 
+    const dialogRef = this.dialog.open(FilterUserComponent,
+      {
+        data:{ documentNumber: filterData.documentNumber, roleId: filterData.roleId, roleMissing: filterData.roleMissing}
+      })
+
+  dialogRef.afterClosed().subscribe(result =>
+    {
+        if(result.documentNumber != '' && (result.roleId && result.roleMissing)== 0 )
+          {
+            this._apiuserService.getUserByDocumentNumber(result.documentNumber).subscribe(
+              {
+                next:(data)=>
+                  {
+                    this.userList = [];
+                    this.userList.push(data);
+                  }
+              })
+          }else if(result.roleId > 0 && result.documentNumber == '' && result.roleMissing == 0)
+            {
+              this._apiRoleService.UsersWithCurrentRole(result.roleId).subscribe(
+                {
+                  next:(data)=>
+                    {
+                      this.userList = [];
+                      this.userList = data;
+                    }
+                }
+              )
+            }else if( result.roleMissing > 0 && result.documentNumber ==''  && result.roleId==0)
+              {
+                this._apiRoleService.UsersWithoutCurrentRole(result.roleMissing).subscribe(
+                  {
+                    next:(data)=>
+                      {
+                        this.userList = [];
+                        this.userList = data;
+                      }
+                  })
+              }
+    })
+  }
+
+  checkRoleInfoFromUser(model: UserDto)
+  {
+     
+     this._apiuserService.ListUserRoles(model.userId).subscribe(
+      {
+       next:(data:UserRolesDto)=>
+        {
+          if(data)
+            {
+              this.userRoles = data;
+              
+            }else
+            {
+              alert("Ocurrio un  error");
+            }
+   
+        }
+      })
+    
+     setTimeout(()=>
+      {
+        console.log(this.userRoles);
+        const dialogRef = this.dialog.open(InfoRolesUserComponent,
+          { 
+            data:{userName: this.userRoles.userName, documentNumber: this.userRoles.documentNumber,roles: this.userRoles.roles}
+          }) 
+      },200)
+   
+  }
+
+ 
 }

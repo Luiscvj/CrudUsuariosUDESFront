@@ -1,4 +1,6 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { UserService } from "../Services/User/user.service";
+import { Observable, map } from "rxjs";
 
 export class CustomValidators{
     static strongPassword(): ValidatorFn{
@@ -21,4 +23,19 @@ export class CustomValidators{
         }
         
     }
+
+
+
+    static emailInUse(user: UserService):AsyncValidatorFn
+    {
+        return (control:AbstractControl):Observable<ValidationErrors| null>=>
+            {
+                return  user.isEmailAlreadyUse(control.value)
+                .pipe(
+                    map(userNameExists => userNameExists ? {emailInUse: true } : null),
+                    
+                ); 
+            }
+    }
+
 }

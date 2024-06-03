@@ -31,6 +31,21 @@
       <!-- <input matInput [(ngModel)]="userData.documentTypeId"> -->
    </mat-form-field>
 
+   <mat-checkbox color="primary" [(ngModel)]="showAddRol">Añadir rol</mat-checkbox>
+
+ @if(showAddRol)
+ {
+   <mat-form-field>
+       <mat-label>Roles</mat-label>
+       <mat-select [(ngModel)]="userData.roleName">
+               <mat-option value="Administrador">Administrador</mat-option>
+               <mat-option value="Empleado">Empleado</mat-option>
+               <mat-option value="Gerente">Gerente</mat-option>
+       </mat-select>
+   </mat-form-field>  
+
+ }
+
 
 </mat-dialog-content>
 

@@ -12,3 +12,15 @@
     min-width: 700px;
     max-width: 100%;
 }
+
+mat-form-field
+{
+    width: 80px;
+    height: 50px;
+}
+
+.listarButton 
+{
+    display: flex !important;
+    justify-content: end !important;
+}

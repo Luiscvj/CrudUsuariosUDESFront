@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
-import { UserService } from '../../Services/user.service';
+import { UserService } from '../../Services/User/user.service';
 import { Router } from '@angular/router';
 import { CustomValidators } from '../../Helpers/CustomValidator';
 import { MyErrorStateMatcher } from '../../Helpers/MyErrorStateMatcher';
@@ -62,5 +62,10 @@ export class LoginComponent {
     }) 
   }
 
+  registrarse(event: Event)
+  {
+    event.preventDefault();
+    this.router.navigate(['/register']);
+  }
 
 }
