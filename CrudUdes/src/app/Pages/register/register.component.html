@@ -29,10 +29,10 @@
                             <mat-form-field [style]="{'width':'100%','margin-right':'20%'}" >
                                 <mat-label>Password</mat-label>
                                 <input [type]="hide? 'password':'text'" matInput formControlName="password" [errorStateMatcher]="matcher">
-                                <button mat-icon-button matSuffix (click)="hide=!hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                </button>
-                                @if(this.registerForm.controls['password'].hasError('required'))
+                                <button mat-icon-button [matTooltip]="getPasswordErrorMessage()" matSuffix>
+                                    <mat-icon>info</mat-icon>
+                                  </button>
+                             <!--    @if(this.registerForm.controls['password'].hasError('required'))
                                 {
                                     <mat-error>Passowrd is required</mat-error>
                                 }
@@ -40,7 +40,7 @@
                                 {
                                     <mat-error>Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter,
                                         one number, and one special character.</mat-error>
-                                }
+                                } -->
                             </mat-form-field>
                         </div>
 

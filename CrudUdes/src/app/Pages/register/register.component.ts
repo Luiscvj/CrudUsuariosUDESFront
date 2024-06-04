@@ -10,7 +10,7 @@ import { CustomValidators } from '../../Helpers/CustomValidator';
 import { MyErrorStateMatcher } from '../../Helpers/MyErrorStateMatcher';
 import {MatButtonModule} from '@angular/material/button';
 import { RegisterUserDto } from '../../Models/UserDTOS/RegisterUserDTO';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -21,7 +21,8 @@ import { RegisterUserDto } from '../../Models/UserDTOS/RegisterUserDTO';
     MatInputModule,
     MatSelectModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTooltipModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -101,4 +102,13 @@ export class RegisterComponent {
    }
     
 
+   getPasswordErrorMessage() {
+    let  control = this.registerForm.get('password');
+    if (control?.hasError('required')) {
+      return 'Password is required';
+    } else if (control?.hasError('strongPassword')) {
+      return 'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.';
+    }
+    return '';
+  }
 }
